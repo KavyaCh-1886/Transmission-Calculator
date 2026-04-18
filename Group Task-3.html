@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Transmission Line Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>Transmission Line Calculator</h1>
+
+<label for="length">Line length (km):</label>
+<input type="number" id="length" placeholder="Line length (km)"><br><br>
+
+<label for="power">Receiving end load (MW):</label>
+<input type="number" id="power" placeholder="Receiving end load (MW)"><br><br>
+
+<label for="pf">Power factor of receiving end load:</label>
+<input type="number" id="pf" placeholder="Power factor of receiving end load"><br><br>
+
+<label for="voltage">Nominal System Voltage (kV):</label>
+<input type="number" id="voltage" placeholder="Nominal System Voltage (kV)"><br><br>
+<label for="freq">Power Frequency (Hz):</label>
+<input type="number" id="freq" placeholder="Power Frequency (Hz)"><br><br>
+
+
+<label for="systemType">System Type:</label><br>
+<select id="systemType" title="System Type" onchange="updateInputs()">
+  <option value="sym">Symmetrical</option>
+  <option value="unsym">Unsymmetrical</option>
+</select>
+
+<br><br>
+
+<!-- One input -->
+<div id="oneInput">
+  <label>Symmetrical Spacing :</label>
+  <input type="number" id="d" placeholder="Distance (m)"><br>
+</div>
+
+<!-- Three inputs -->
+<div id="threeInputs" class="hidden">
+  <label>Distance D1:</label>
+  <input type="number" id="d1" placeholder="Distance (m)"><br>
+
+  <label>Distance D2:</label>
+  <input type="number" id="d2" placeholder="Distance (m)"><br>
+
+  <label>Distance D3:</label>
+  <input type="number" id="d3" placeholder="Distance (m)"><br>
+</div>
+
+<script>
+     function updateInputs() {
+  let type = document.getElementById("systemType").value;
+
+  if (type === "sym") {
+    document.getElementById("oneInput").style.display = "block";
+    document.getElementById("threeInputs").style.display = "none";
+  } else {
+    document.getElementById("oneInput").style.display = "none";
+    document.getElementById("threeInputs").style.display = "block";
+  }
+} 
+function getValues() {
+  let type = document.getElementById("systemType").value;
+
+  if (type === "sym") {
+    let D = document.getElementById("d").value;
+    console.log("Symmetrical Distance:", D);
+  } else {
+    let D1 = document.getElementById("d1").value;
+    let D2 = document.getElementById("d2").value;
+    let D3 = document.getElementById("d3").value;
+    console.log("Unsymmetrical:", D1, D2, D3);
+  }
+}
+</script>
+
+
+<label for="Dsub">Spacing between Sub-conductors (m):</label>
+<input type="number" id="Dsub" placeholder="Spacing between Sub-conductors (m)"><br><br>
+
+<label for="nSub">Number of Sub-conductors per bundle (2/3/4):</label>
+<input type="number" id="nSub" placeholder="Number of Sub-conductors per bundle (2/3/4)"><br><br>
+<label for="Nstrand">Number of strands in each sub-conductor:</label>
+<input type="number" id="Nstrand" placeholder="Number of strands in each sub-conductor"><br><br>
+<label for="strandDia">Diameter of each strand (mm):</label>
+<input type="number" id="strandDia" placeholder="Diameter of each strand (mm)"><br><br>
+<label for="Res">Resistance of each sub-conductor per km (Ω/km):</label>
+<input type="number" id="Res" placeholder="Resistance of each sub-conductor per km (Ω/km)"><br><br>
+
+<label for="LineModel">Line Model:</label><br>
+<select id="LineModel" title="Line Model">
+    <option value="short">Short Line Model</option>
+    <option value="medium">Nominal Pi Model</option>
+    <option value="long">Distributed Parameter Model</option>
+</select>
+
+<br><br>
+
+<button onclick="calculate()">Calculate</button>
+
+<script>
+updateInputs(); // runs on page load
+</script>
+
+<h2 id="result"></h2>
+
+
+<script src="script.js"></script>
+</body>
+</html>
