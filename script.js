@@ -204,15 +204,15 @@ let CVr = multiply(C, Vrp);
 let DIr = multiply(D, Ir);
 let Is = add(CVr, DIr);
 
-let Ic, Y_half, Ic1, Ic2, Vsl;
+let Ic, Y_half, Yt;
 if (model === "medium") {
     Yt = scale(Y, l);
  Y_half =(divide(Yt, complex(2, 0)));
  Ic = multiply(Y_half, Vs);
 
 } else if (model === "long") {
-    Vsl = scale(Vs, Math.sqrt(3));
-    Ic = multiply(Y,Vsl);
+    Yt = scale(Y, l);
+    Ic = multiply(Yt,Vs);
 }else {
     Ic = complex(0, 0);
 }
